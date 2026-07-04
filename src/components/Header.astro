@@ -4,47 +4,58 @@ import logo from '@/assets/logo.png';
 ---
 
 <header class="logo-bar">
-  <a href="#top" class="logo" aria-label="Newsletter Co-Pilot — home">
-    <Image src={logo} alt="Run Your Letter" height={34} class="logo-img" />
-    <span class="brand-name">Newsletter Co-Pilot</span>
-  </a>
+  <div class="logo-inner">
+    <a href="#top" class="logo" aria-label="Your Newsletter Co-Pilot — home">
+      <Image src={logo} alt="Run Your Letter" height={32} class="logo-img" />
+      <span class="brand-name">Your Newsletter Co-Pilot</span>
+    </a>
+  </div>
 </header>
 
 <style>
   .logo-bar {
-    padding: 14px var(--section-x);
+    padding: 15px var(--section-x);
     background: var(--navy);
     border-bottom: 1px solid var(--border-dark);
+  }
+  .logo-inner {
+    max-width: 1120px;
+    margin: 0 auto; /* aligns the mark with the hero's content column */
   }
   .logo {
     display: inline-flex;
     align-items: center;
-    gap: 11px;
+    gap: 13px;
     text-decoration: none;
   }
   .logo-img {
-    height: 34px;
+    height: 32px;
     width: auto;
     display: block;
     filter: brightness(0) invert(1);
   }
   .brand-name {
+    font-family: 'Fraunces Variable', Georgia, serif;
+    font-optical-sizing: auto;
     color: #fff;
-    font-weight: 700;
-    font-size: 1.05rem;
-    letter-spacing: -0.01em;
+    font-weight: 500;
+    font-size: 1.28rem;
+    letter-spacing: 0.005em;
     line-height: 1;
+    /* nudge the serif down to center against the bottom-weighted stacked logo */
+    transform: translateY(2px);
+    white-space: nowrap;
   }
 
   @media (max-width: 880px) {
     .logo-bar {
-      padding: 12px var(--section-x);
+      padding: 13px var(--section-x);
     }
     .logo-img {
       height: 28px;
     }
     .brand-name {
-      font-size: 0.95rem;
+      font-size: 1.1rem;
     }
   }
 </style>
