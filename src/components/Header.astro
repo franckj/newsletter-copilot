@@ -35,15 +35,12 @@ import logo from '@/assets/logo.png';
     filter: brightness(0) invert(1);
   }
   .brand-name {
-    font-family: 'Fraunces Variable', Georgia, serif;
-    font-optical-sizing: auto;
+    font-family: var(--font-body);
     color: #fff;
-    font-weight: 500;
-    font-size: 1.28rem;
-    letter-spacing: 0.005em;
+    font-weight: 700;
+    font-size: 1.18rem;
+    letter-spacing: -0.02em; /* matches the heading treatment */
     line-height: 1;
-    /* nudge the serif down to center against the bottom-weighted stacked logo */
-    transform: translateY(2px);
     white-space: nowrap;
   }
 
@@ -55,7 +52,7 @@ import logo from '@/assets/logo.png';
       height: 28px;
     }
     .brand-name {
-      font-size: 1.1rem;
+      font-size: 1.02rem;
     }
   }
 </style>
