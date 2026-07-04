@@ -1,0 +1,52 @@
+:root {
+  /* Palette — Juliet's brand */
+  --navy: #0F0D4E;
+  --navy-2: #191859;
+  --navy-3: #08072D;
+  --red: #DB1C4A;
+  --red-dark: #B21639;
+  --pale: #9BB9F9;
+  --pale-soft: #C5D5FB;
+  --white: #FFFFFF;
+  --off: #F5F6FC;
+  --text-dark: #1A1A2E;
+  --muted-on-dark: rgba(255, 255, 255, 0.88);
+  --muted-on-light: #6B7280;
+  --border-dark: rgba(155, 185, 249, 0.15);
+  --border-light: #E0E3F0;
+
+  /* Type scale */
+  --font-body: 'InterVariable', system-ui, sans-serif;
+  --fs-h1: clamp(2.2rem, 4vw, 3.2rem);
+  --fs-h2: clamp(1.8rem, 3vw, 2.4rem);
+  --fs-h3: 1.15rem;
+  --fs-body: 15px;
+  --lh-body: 1.65;
+
+  /* Spacing scale (8px base) */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 48px;
+  --sp-8: 64px;
+  --sp-9: 96px;
+
+  /* Radii */
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 14px;
+  --r-full: 999px;
+
+  /* Section padding — used everywhere */
+  --section-y: 100px;
+  --section-x: 7%;
+}
+
+@media (max-width: 880px) {
+  :root {
+    --section-y: 70px;
+  }
+}
