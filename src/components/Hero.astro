@@ -28,6 +28,8 @@ import WaitlistForm from './WaitlistForm.astro';
         }
       </div>
 
+      <a href="#claim" class="btn btn-red hero-cta-mobile">{hero.formCta}</a>
+
       <p class="hero-desc">{hero.intro}</p>
 
       <div class="hero-desc emphasize">
@@ -142,13 +144,28 @@ import WaitlistForm from './WaitlistForm.astro';
     line-height: 1.55;
   }
 
+  /* CTA button shown only on mobile — desktop already has the form in view. */
+  .hero-cta-mobile {
+    display: none;
+  }
+
   @media (max-width: 880px) {
     .hero {
-      padding: 50px var(--section-x) 70px;
+      padding: 28px var(--section-x) 60px;
     }
     .hero-inner {
       grid-template-columns: 1fr;
-      gap: 40px;
+      gap: 32px;
+    }
+    .hero-cta-mobile {
+      display: block;
+      width: 100%;
+      text-align: center;
+      margin: 4px 0 2px;
+    }
+    /* Trim the emphasis block's top gap so the fold stays tight. */
+    .hero-desc.emphasize {
+      margin-top: 16px;
     }
   }
 </style>

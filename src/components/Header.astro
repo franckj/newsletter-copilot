@@ -4,25 +4,47 @@ import logo from '@/assets/logo.png';
 ---
 
 <header class="logo-bar">
-  <a href="#top" class="logo" aria-label="Run Your Letter — home">
-    <Image src={logo} alt="Run Your Letter" height={46} class="logo-img" />
+  <a href="#top" class="logo" aria-label="Newsletter Co-Pilot — home">
+    <Image src={logo} alt="Run Your Letter" height={34} class="logo-img" />
+    <span class="brand-name">Newsletter Co-Pilot</span>
   </a>
 </header>
 
 <style>
   .logo-bar {
-    padding: 24px var(--section-x);
+    padding: 14px var(--section-x);
     background: var(--navy);
     border-bottom: 1px solid var(--border-dark);
   }
   .logo {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 11px;
     text-decoration: none;
   }
   .logo-img {
-    height: 46px;
+    height: 34px;
     width: auto;
     display: block;
     filter: brightness(0) invert(1);
+  }
+  .brand-name {
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: -0.01em;
+    line-height: 1;
+  }
+
+  @media (max-width: 880px) {
+    .logo-bar {
+      padding: 12px var(--section-x);
+    }
+    .logo-img {
+      height: 28px;
+    }
+    .brand-name {
+      font-size: 0.95rem;
+    }
   }
 </style>
