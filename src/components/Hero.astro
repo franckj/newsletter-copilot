@@ -5,7 +5,7 @@ import WaitlistForm from './WaitlistForm.astro';
 
 <section class="hero" id="top">
   <div class="hero-inner">
-    <div>
+    <div class="hero-head">
       <h1>
         {hero.h1Prefix} <span class="accent">{hero.h1Accent}</span> {hero.h1Suffix}
       </h1>
@@ -27,21 +27,19 @@ import WaitlistForm from './WaitlistForm.astro';
           ))
         }
       </div>
-
-      <a href="#claim" class="btn btn-red hero-cta-mobile">{hero.formCta}</a>
-
-      <p class="hero-desc">{hero.intro}</p>
-
-      <div class="hero-desc emphasize">
-        <p>{hero.offer}</p>
-        <p>{hero.copilot}</p>
-      </div>
     </div>
+
+    <p class="hero-desc hero-intro">{hero.intro}</p>
 
     <div class="hero-form" id="claim">
       <div class="hero-form-title">{hero.formTitle}</div>
       <p class="hero-form-sub">{hero.formSub}</p>
       <WaitlistForm variant="stacked" ctaLabel={hero.formCta} note={hero.formNote} />
+    </div>
+
+    <div class="hero-desc emphasize hero-more">
+      <p>{hero.offer}</p>
+      <p>{hero.copilot}</p>
     </div>
   </div>
 </section>
@@ -63,14 +61,32 @@ import WaitlistForm from './WaitlistForm.astro';
     background: radial-gradient(circle, rgba(155, 185, 249, 0.08) 0%, transparent 65%);
     pointer-events: none;
   }
+  /* Desktop: text column on the left, form spanning the right column. */
   .hero-inner {
     max-width: 1120px;
     margin: 0 auto;
     display: grid;
     grid-template-columns: 1fr 400px;
-    gap: 70px;
+    grid-template-areas:
+      'head form'
+      'intro form'
+      'more form';
+    column-gap: 70px;
+    row-gap: 0;
     align-items: start;
     position: relative;
+  }
+  .hero-head {
+    grid-area: head;
+  }
+  .hero-intro {
+    grid-area: intro;
+  }
+  .hero-form {
+    grid-area: form;
+  }
+  .hero-more {
+    grid-area: more;
   }
 
   .hero-pillars {
@@ -144,28 +160,28 @@ import WaitlistForm from './WaitlistForm.astro';
     line-height: 1.55;
   }
 
-  /* CTA button shown only on mobile — desktop already has the form in view. */
-  .hero-cta-mobile {
-    display: none;
-  }
-
+  /* Mobile: single column, form sits directly under the intro paragraph. */
   @media (max-width: 880px) {
     .hero {
       padding: 28px var(--section-x) 60px;
     }
     .hero-inner {
       grid-template-columns: 1fr;
-      gap: 32px;
+      grid-template-areas:
+        'head'
+        'intro'
+        'form'
+        'more';
+      row-gap: 24px;
     }
-    .hero-cta-mobile {
-      display: block;
-      width: 100%;
-      text-align: center;
-      margin: 4px 0 2px;
+    .hero-pillars {
+      margin: 14px 0 0;
     }
-    /* Trim the emphasis block's top gap so the fold stays tight. */
+    .hero-intro {
+      margin-bottom: 0;
+    }
     .hero-desc.emphasize {
-      margin-top: 16px;
+      margin-top: 0;
     }
   }
 </style>
