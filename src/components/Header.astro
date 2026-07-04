@@ -1,12 +1,23 @@
 ---
-import { Image } from 'astro:assets';
-import logo from '@/assets/logo.png';
+// Brand mark: a clean, mostly-white envelope glyph (newsletter motif).
 ---
 
 <header class="logo-bar">
   <div class="logo-inner">
     <a href="#top" class="logo" aria-label="Your Newsletter Co-Pilot — home">
-      <Image src={logo} alt="Run Your Letter" height={32} class="logo-img" />
+      <span class="brand-icon" aria-hidden="true">
+        <svg viewBox="0 0 40 40" width="34" height="34" role="img">
+          <rect x="4" y="9" width="32" height="23" rx="4.5" fill="#fff" />
+          <path
+            d="M8 13 L20 22 L32 13"
+            fill="none"
+            stroke="var(--navy)"
+            stroke-width="2.4"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </span>
       <span class="brand-name">Your Newsletter Co-Pilot</span>
     </a>
   </div>
@@ -25,34 +36,37 @@ import logo from '@/assets/logo.png';
   .logo {
     display: inline-flex;
     align-items: center;
-    gap: 13px;
+    gap: 12px;
     text-decoration: none;
   }
-  .logo-img {
-    height: 32px;
-    width: auto;
+  .brand-icon {
+    display: flex;
+    align-items: center;
+  }
+  .brand-icon svg {
     display: block;
-    filter: brightness(0) invert(1);
+    width: 34px;
+    height: 34px;
   }
   .brand-name {
-    font-family: var(--font-body);
+    font-family: 'Space Grotesk Variable', var(--font-body);
     color: #fff;
-    font-weight: 700;
-    font-size: 1.18rem;
-    letter-spacing: -0.02em; /* matches the heading treatment */
+    font-weight: 600;
+    font-size: 1.2rem;
+    letter-spacing: -0.01em;
     line-height: 1;
-    white-space: nowrap;
   }
 
   @media (max-width: 880px) {
     .logo-bar {
       padding: 13px var(--section-x);
     }
-    .logo-img {
-      height: 28px;
+    .brand-icon svg {
+      width: 30px;
+      height: 30px;
     }
     .brand-name {
-      font-size: 1.02rem;
+      font-size: 1.05rem;
     }
   }
 </style>
