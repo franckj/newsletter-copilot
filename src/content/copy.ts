@@ -32,6 +32,12 @@ export const hero = {
   formNote: "No commitment. You'll hear from me when a spot opens.",
 };
 
+// Success state shown after a waitlist signup (covers + blurs the form).
+export const waitlist = {
+  successTitle: "You're on the list!",
+  successBody: "Thanks — you'll hear from me when a spot opens. Keep an eye on your inbox.",
+};
+
 export const testimonials = [
   {
     quote:
