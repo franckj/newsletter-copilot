@@ -1,0 +1,80 @@
+---
+import '@fontsource-variable/inter';
+import '@/styles/tokens.css';
+import '@/styles/global.css';
+import { meta } from '@/content/copy';
+
+const ogImageUrl = new URL(meta.ogImage, meta.canonical).toString();
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{meta.title}</title>
+
+    <link rel="canonical" href={meta.canonical} />
+    <meta name="description" content={meta.description} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={meta.canonical} />
+    <meta property="og:title" content={meta.title} />
+    <meta property="og:description" content={meta.description} />
+    <meta property="og:image" content={ogImageUrl} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={meta.title} />
+    <meta name="twitter:description" content={meta.description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <!-- JSON-LD: Person + Service -->
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@graph': [
+          {
+            '@type': 'Person',
+            '@id': 'https://newslettercopilot.co/#juliet',
+            name: 'Juliet Lyall',
+            jobTitle: 'Newsletter Co-Pilot',
+            url: 'https://newslettercopilot.co/',
+            sameAs: ['https://www.linkedin.com/in/julietlyall/'],
+          },
+          {
+            '@type': 'Service',
+            '@id': 'https://newslettercopilot.co/#service',
+            name: 'Newsletter Co-Pilot Advisory',
+            provider: { '@id': 'https://newslettercopilot.co/#juliet' },
+            areaServed: 'Worldwide',
+            serviceType: 'Newsletter advisory and consulting for B2B founders',
+            offers: {
+              '@type': 'Offer',
+              priceCurrency: 'USD',
+              price: '5500',
+              priceValidUntil: '2027-12-31',
+            },
+          },
+        ],
+      })}
+    />
+  </head>
+  <body>
+    <slot />
+
+    {
+      import.meta.env.PUBLIC_CF_ANALYTICS_TOKEN && (
+        <script
+          defer
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon={`{"token": "${import.meta.env.PUBLIC_CF_ANALYTICS_TOKEN}"}`}
+        />
+      )
+    }
+  </body>
+</html>

@@ -1,0 +1,30 @@
+---
+import { finalCta } from '@/content/copy';
+import WaitlistForm from './WaitlistForm.astro';
+---
+
+<section class="section cta-section">
+  <div class="section-inner cta-block">
+    <h2>{finalCta.h2Prefix} <span class="accent">{finalCta.h2Accent}</span></h2>
+    <p class="lead cta-lead">{finalCta.body}</p>
+
+    <WaitlistForm variant="row" ctaLabel={finalCta.buttonLabel} note={finalCta.note} />
+  </div>
+</section>
+
+<style>
+  .cta-section {
+    background: var(--navy-3);
+  }
+  .cta-block {
+    text-align: center;
+  }
+  .cta-block h2 {
+    color: #fff;
+  }
+  .cta-lead {
+    margin: 0 auto 36px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.85);
+  }
+</style>

@@ -1,0 +1,173 @@
+---
+import { Image } from 'astro:assets';
+import { about, sections } from '@/content/copy';
+import juliet from '@/assets/juliet.png';
+
+const s = sections.about;
+---
+
+<section class="section section-light">
+  <div class="section-inner">
+    <h2>{s.h2Prefix} <span class="accent">{s.h2Accent}</span></h2>
+    <p class="lead">{about.intro}</p>
+
+    <div class="about-grid">
+      <div class="about-photo-wrap">
+        <Image src={juliet} alt={about.name} width={280} height={280} class="about-photo" />
+        <div class="about-card">
+          <div class="name">{about.name}</div>
+          <div class="role">{about.photoRole}</div>
+        </div>
+      </div>
+
+      <div class="about-text">
+        {about.paragraphs.map((p) => <p>{p}</p>)}
+
+        <p>
+          <strong>{about.paymentHeading}</strong>
+          {' '}{about.paymentIntro}
+        </p>
+
+        <div class="about-benefits">
+          {
+            about.benefits.map((b, i) => (
+              <div class="about-benefit">
+                <div class="about-benefit-num">{i + 1}</div>
+                <div class="about-benefit-text">
+                  <strong>{b.title}</strong>
+                  <span>{b.desc}</span>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+
+        <p class="about-outro">{about.outro}</p>
+        <p class="about-cta">{about.cta}</p>
+        <p class="about-sign">
+          <a href={about.linkedIn}>— {about.name}</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 64px;
+    align-items: start;
+    margin-top: 50px;
+  }
+  .about-photo-wrap {
+    position: sticky;
+    top: 30px;
+  }
+  .about-photo {
+    width: 100%;
+    height: auto;
+    border-radius: 14px;
+    aspect-ratio: 1;
+    object-fit: cover;
+    display: block;
+    border: 3px solid var(--pale);
+  }
+  .about-card {
+    background: var(--navy);
+    border: 1px solid var(--pale);
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-top: -28px;
+    margin-left: 18px;
+    position: relative;
+    z-index: 2;
+  }
+  .about-card .name {
+    font-weight: 800;
+    font-size: 0.9rem;
+    color: #fff;
+  }
+  .about-card .role {
+    color: var(--pale);
+    font-size: 0.77rem;
+    margin-top: 2px;
+  }
+
+  .about-text p {
+    font-size: 0.97rem;
+    color: var(--text-dark);
+    line-height: 1.85;
+    margin-bottom: 18px;
+  }
+  .about-text p strong {
+    color: var(--navy);
+    font-weight: 600;
+  }
+
+  .about-benefits {
+    margin-top: 8px;
+    display: grid;
+    gap: 14px;
+  }
+  .about-benefit {
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    gap: 14px;
+    align-items: start;
+  }
+  .about-benefit-num {
+    width: 28px;
+    height: 28px;
+    border: 1px solid var(--red);
+    color: var(--red);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 0.78rem;
+    margin-top: 3px;
+  }
+  .about-benefit-text strong {
+    display: block;
+    color: var(--navy);
+    font-weight: 700;
+    font-size: 0.98rem;
+    margin-bottom: 3px;
+  }
+  .about-benefit-text span {
+    color: var(--muted-on-light);
+    font-size: 0.9rem;
+    line-height: 1.65;
+  }
+
+  .about-outro {
+    margin-top: 24px;
+  }
+  .about-cta {
+    color: var(--red);
+    font-weight: 700;
+    font-size: 1.02rem;
+    margin-top: -4px;
+  }
+  .about-sign {
+    font-weight: 700;
+    font-size: 1rem;
+    margin-top: 20px;
+  }
+  .about-sign a {
+    color: var(--red);
+    text-decoration: underline;
+  }
+
+  @media (max-width: 880px) {
+    .about-grid {
+      grid-template-columns: 1fr;
+    }
+    .about-photo-wrap {
+      max-width: 240px;
+      position: static;
+    }
+  }
+</style>

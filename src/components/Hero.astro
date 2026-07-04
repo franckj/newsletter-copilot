@@ -1,0 +1,154 @@
+---
+import { hero } from '@/content/copy';
+import WaitlistForm from './WaitlistForm.astro';
+---
+
+<section class="hero" id="top">
+  <div class="hero-inner">
+    <div>
+      <h1>
+        {hero.h1Prefix} <span class="accent">{hero.h1Accent}</span> {hero.h1Suffix}
+      </h1>
+
+      <div class="hero-pillars">
+        {
+          hero.pillars.map((p) => (
+            <div class="pillar">
+              <span class="tick">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <polyline points="4 13 10 19 20 6" />
+                </svg>
+              </span>
+              <span>
+                <strong>{p.bold}</strong>
+                {p.rest}
+              </span>
+            </div>
+          ))
+        }
+      </div>
+
+      <p class="hero-desc">{hero.intro}</p>
+
+      <div class="hero-desc emphasize">
+        <p>{hero.offer}</p>
+        <p>{hero.copilot}</p>
+      </div>
+    </div>
+
+    <div class="hero-form" id="claim">
+      <div class="hero-form-title">{hero.formTitle}</div>
+      <p class="hero-form-sub">{hero.formSub}</p>
+      <WaitlistForm variant="stacked" ctaLabel={hero.formCta} note={hero.formNote} />
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding: 80px var(--section-x) 100px;
+    background: var(--navy);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px;
+    right: -200px;
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, rgba(155, 185, 249, 0.08) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .hero-inner {
+    max-width: 1120px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 70px;
+    align-items: start;
+    position: relative;
+  }
+
+  .hero-pillars {
+    margin: 18px 0 26px;
+  }
+  .pillar {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 1.05rem;
+    color: #fff;
+    line-height: 1.9;
+    font-weight: 500;
+  }
+  .tick {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .tick svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: var(--red);
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .hero-desc {
+    font-size: 0.98rem;
+    color: var(--muted-on-dark);
+    line-height: 1.8;
+    max-width: 480px;
+    margin-bottom: 10px;
+  }
+  .hero-desc.emphasize {
+    color: #fff;
+    font-weight: 500;
+    border-left: 3px solid var(--red);
+    padding-left: 18px;
+    margin-top: 22px;
+  }
+  .hero-desc.emphasize p {
+    color: #fff;
+  }
+  .hero-desc.emphasize p:first-child {
+    margin-bottom: 12px;
+  }
+
+  .hero-form {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-dark);
+    border-radius: 12px;
+    padding: 34px 30px;
+    backdrop-filter: blur(6px);
+  }
+  .hero-form-title {
+    font-weight: 700;
+    font-size: 1.08rem;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .hero-form-sub {
+    font-size: 0.83rem;
+    color: #fff;
+    margin-bottom: 22px;
+    line-height: 1.55;
+  }
+
+  @media (max-width: 880px) {
+    .hero {
+      padding: 50px var(--section-x) 70px;
+    }
+    .hero-inner {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+  }
+</style>

@@ -1,0 +1,97 @@
+---
+import { Image } from 'astro:assets';
+import { testimonials, sections } from '@/content/copy';
+import travis from '@/assets/travis.jpg';
+import mark from '@/assets/mark.jpeg';
+import dom from '@/assets/dom.jpeg';
+
+const photos = { travis, mark, dom };
+const s = sections.testimonials;
+---
+
+<section class="section section-light">
+  <div class="section-inner">
+    <h2>{s.h2Prefix} <span class="accent">{s.h2Accent}</span></h2>
+    <p class="lead">{s.lead}</p>
+
+    <div class="testi-grid">
+      {
+        testimonials.map((t) => (
+          <div class="testi-card testi-card-light">
+            <p class="testi-text">"{t.quote}"</p>
+            <div class="testi-author">
+              <Image
+                src={photos[t.photo as keyof typeof photos]}
+                alt={t.name}
+                width={46}
+                height={46}
+                class="testi-photo"
+              />
+              <div>
+                <div class="testi-name">{t.name}</div>
+                <div class="testi-role">{t.role}</div>
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .testi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 44px;
+  }
+  .testi-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border-dark);
+    border-radius: 10px;
+    padding: 30px 26px;
+  }
+  .testi-card-light {
+    background: var(--white);
+    border: 1px solid var(--border-light);
+  }
+  .testi-text {
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    line-height: 1.8;
+    margin-bottom: 24px;
+    font-style: italic;
+  }
+  .testi-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-top: 18px;
+    border-top: 1px solid var(--border-light);
+  }
+  .testi-photo {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 2px solid var(--pale);
+  }
+  .testi-name {
+    font-weight: 700;
+    font-size: 0.87rem;
+    color: var(--navy);
+  }
+  .testi-role {
+    font-size: 0.75rem;
+    color: var(--muted-on-light);
+    margin-top: 2px;
+  }
+
+  @media (max-width: 880px) {
+    .testi-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

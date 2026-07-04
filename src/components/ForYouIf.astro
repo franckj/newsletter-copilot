@@ -1,0 +1,77 @@
+---
+import { forYouIf, sections } from '@/content/copy';
+
+const s = sections.forYouIf;
+---
+
+<section class="section">
+  <div class="section-inner">
+    <h2>{s.h2Prefix} <span class="accent">{s.h2Accent}</span>{s.h2Suffix}</h2>
+    <p class="lead">{forYouIf.intro}</p>
+
+    <div class="foryou-grid">
+      {
+        forYouIf.items.map((item, i) => (
+          <div class="foryou-card">
+            <div class="foryou-num">{String(i + 1).padStart(2, '0')}</div>
+            <h3>{item.heading}</h3>
+            <p class="foryou-q">{item.question}</p>
+            <p class="foryou-a">{item.answer}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .foryou-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    margin-top: 60px;
+  }
+  .foryou-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-dark);
+    border-radius: 12px;
+    padding: 32px 30px;
+    position: relative;
+  }
+  .foryou-num {
+    position: absolute;
+    top: -14px;
+    left: 28px;
+    background: var(--red);
+    color: #fff;
+    font-weight: 800;
+    font-size: 0.8rem;
+    padding: 5px 11px;
+    border-radius: 20px;
+    letter-spacing: 0.02em;
+  }
+  .foryou-card h3 {
+    color: #fff;
+    font-size: 1.05rem;
+    margin: 6px 0 12px;
+    line-height: 1.35;
+  }
+  .foryou-q {
+    color: var(--pale);
+    font-size: 0.9rem;
+    font-style: italic;
+    line-height: 1.65;
+    margin-bottom: 12px;
+  }
+  .foryou-a {
+    color: var(--muted-on-dark);
+    font-size: 0.9rem;
+    line-height: 1.72;
+  }
+
+  @media (max-width: 880px) {
+    .foryou-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

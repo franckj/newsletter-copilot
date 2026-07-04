@@ -1,0 +1,58 @@
+---
+import { stats, sections } from '@/content/copy';
+
+const s = sections.coPilot;
+---
+
+<section class="section section-bordered">
+  <div class="section-inner">
+    <h2>{s.h2Prefix} <span class="accent">{s.h2Accent}</span></h2>
+    <p class="lead">{s.lead}</p>
+
+    <div class="stats-grid">
+      {
+        stats.map((stat) => (
+          <div class="stat-card">
+            <div class="stat-number">{stat.number}</div>
+            <div class="stat-label">{stat.label}</div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 40px;
+  }
+  .stat-card {
+    background: rgba(155, 185, 249, 0.06);
+    border: 1px solid var(--border-dark);
+    border-radius: 12px;
+    padding: 36px 28px;
+    text-align: center;
+  }
+  .stat-number {
+    font-size: clamp(2.4rem, 4vw, 3.2rem);
+    font-weight: 800;
+    color: var(--pale);
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+  .stat-label {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 880px) {
+    .stats-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

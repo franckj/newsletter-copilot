@@ -1,0 +1,28 @@
+---
+import { Image } from 'astro:assets';
+import logo from '@/assets/logo.png';
+---
+
+<header class="logo-bar">
+  <a href="#top" class="logo" aria-label="Run Your Letter — home">
+    <Image src={logo} alt="Run Your Letter" height={46} class="logo-img" />
+  </a>
+</header>
+
+<style>
+  .logo-bar {
+    padding: 24px var(--section-x);
+    background: var(--navy);
+    border-bottom: 1px solid var(--border-dark);
+  }
+  .logo {
+    display: inline-block;
+    text-decoration: none;
+  }
+  .logo-img {
+    height: 46px;
+    width: auto;
+    display: block;
+    filter: brightness(0) invert(1);
+  }
+</style>

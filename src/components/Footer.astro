@@ -1,0 +1,26 @@
+---
+import { footer } from '@/content/copy';
+---
+
+<footer>
+  <p>{footer.copyright}</p>
+  <p><a href={footer.linkedIn}>{footer.linkedInLabel}</a></p>
+</footer>
+
+<style>
+  footer {
+    background: var(--navy-3);
+    padding: 40px var(--section-x);
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 0.8rem;
+    text-align: center;
+    border-top: 1px solid var(--border-dark);
+  }
+  footer p {
+    line-height: 1.8;
+  }
+  footer a {
+    color: var(--pale);
+    text-decoration: none;
+  }
+</style>

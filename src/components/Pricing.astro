@@ -1,0 +1,132 @@
+---
+import { pricing, sections } from '@/content/copy';
+
+const s = sections.pricing;
+---
+
+<section class="section">
+  <div class="section-inner">
+    <div class="pricing-top">
+      <h2>{s.h2Prefix} <span class="accent">{s.h2Accent}</span></h2>
+      <p class="lead pricing-intro">{pricing.intro}</p>
+
+      <div class="pricing-hook">
+        {pricing.hookPrefix} <span class="price-num">{pricing.hookPrice}</span>
+      </div>
+
+      <p class="lead pricing-scarcity">{pricing.scarcity}</p>
+    </div>
+
+    <div class="pricing-tiers">
+      {
+        pricing.tiers.map((tier) => (
+          <div class:list={['tier', { featured: tier.featured }]}>
+            <div class="tier-badge">{tier.badge}</div>
+            <div class="tier-title">{tier.title}</div>
+            <div class="tier-price">{tier.price}</div>
+            <div class="tier-period">{tier.period}</div>
+          </div>
+        ))
+      }
+    </div>
+
+    <p class="pricing-note">{pricing.note}</p>
+  </div>
+</section>
+
+<style>
+  .pricing-top {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+  .pricing-intro {
+    margin: 0 auto 32px;
+  }
+  .pricing-hook {
+    display: inline-block;
+    background: rgba(219, 28, 74, 0.15);
+    border: 1px solid var(--red);
+    color: #fff;
+    padding: 10px 22px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 24px;
+    letter-spacing: 0.01em;
+  }
+  .price-num {
+    color: var(--red);
+    font-weight: 800;
+  }
+  .pricing-scarcity {
+    margin: 0 auto;
+    font-size: 0.95rem;
+  }
+  .pricing-tiers {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .tier {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border-dark);
+    border-radius: 12px;
+    padding: 32px 24px;
+    text-align: center;
+    position: relative;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .tier.featured {
+    border-color: var(--red);
+    background: rgba(219, 28, 74, 0.06);
+  }
+  .tier-badge {
+    display: inline-block;
+    background: var(--pale);
+    color: var(--navy);
+    font-weight: 700;
+    font-size: 0.72rem;
+    padding: 4px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .tier.featured .tier-badge {
+    background: var(--red);
+    color: #fff;
+  }
+  .tier-title {
+    color: #fff;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 8px;
+  }
+  .tier-price {
+    font-size: 2.1rem;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.025em;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .tier-period {
+    color: var(--muted-on-dark);
+    font-size: 0.85rem;
+  }
+  .pricing-note {
+    text-align: center;
+    margin-top: 32px;
+    color: var(--muted-on-dark);
+    font-size: 0.88rem;
+    line-height: 1.7;
+  }
+
+  @media (max-width: 880px) {
+    .pricing-tiers {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

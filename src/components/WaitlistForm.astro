@@ -1,0 +1,192 @@
+---
+// Reusable waitlist form. Used by Hero (stacked) and FinalCTA (row).
+// Progressive enhancement: works as a native POST without JS; JS upgrades
+// it to an inline fetch with success/error states.
+const HONEYPOT_FIELD = import.meta.env.HONEYPOT_FIELD ?? 'website_url';
+
+interface Props {
+  variant?: 'stacked' | 'row';
+  ctaLabel: string;
+  note?: string;
+}
+
+const { variant = 'stacked', ctaLabel, note } = Astro.props;
+---
+
+<form
+  class:list={['waitlist-form', `waitlist-form--${variant}`]}
+  action="/api/waitlist"
+  method="post"
+>
+  <!-- Honeypot: hidden from users, tempting to bots. Field name is env-driven. -->
+  <div class="hp" aria-hidden="true">
+    <label>Leave this field empty
+      <input type="text" name={HONEYPOT_FIELD} tabindex="-1" autocomplete="off" />
+    </label>
+  </div>
+
+  <div class="field">
+    <label class="visually-hidden" for={`first_name_${variant}`}>First name</label>
+    <input
+      id={`first_name_${variant}`}
+      type="text"
+      name="first_name"
+      placeholder="First name"
+      autocomplete="given-name"
+    />
+  </div>
+
+  <div class="field">
+    <label class="visually-hidden" for={`email_${variant}`}>Email address</label>
+    <input
+      id={`email_${variant}`}
+      type="email"
+      name="email"
+      placeholder="Email Address"
+      autocomplete="email"
+      required
+    />
+  </div>
+
+  <button type="submit" class:list={['btn', 'btn-red', { 'btn-block': variant === 'stacked' }]}>
+    {ctaLabel}
+  </button>
+
+  {note && <p class="form-note">{note}</p>}
+
+  <p class="form-status" role="status" aria-live="polite" hidden></p>
+</form>
+
+<style>
+  .field {
+    margin-bottom: 12px;
+  }
+  .field input {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--border-dark);
+    border-radius: var(--r-sm);
+    padding: 13px 15px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    color: #fff;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .field input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+  }
+  .field input:focus {
+    border-color: var(--pale);
+  }
+
+  .form-note {
+    text-align: center;
+    font-size: 0.74rem;
+    color: rgba(255, 255, 255, 0.4);
+    margin-top: 12px;
+  }
+
+  .form-status {
+    margin-top: 14px;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    text-align: center;
+  }
+  .form-status[data-state='ok'] {
+    color: var(--pale);
+  }
+  .form-status[data-state='err'] {
+    color: #ff9db1;
+  }
+
+  /* Honeypot — visually removed but present in the DOM for bots. */
+  .hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  /* Row variant (Final CTA) */
+  .waitlist-form--row {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+  .waitlist-form--row .field {
+    flex: 1 1 180px;
+    margin-bottom: 0;
+  }
+  .waitlist-form--row .field input {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.25);
+    padding: 14px 16px;
+  }
+  .waitlist-form--row .field input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
+  .waitlist-form--row .form-note,
+  .waitlist-form--row .form-status {
+    flex-basis: 100%;
+  }
+</style>
+
+<script>
+  // Progressive enhancement: intercept submit, POST via fetch, show inline state.
+  document.querySelectorAll<HTMLFormElement>('.waitlist-form').forEach((form) => {
+    const status = form.querySelector<HTMLParagraphElement>('.form-status');
+    const button = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+    const emailInput = form.querySelector<HTMLInputElement>('input[name="email"]');
+    if (!status || !button) return;
+
+    const setStatus = (msg: string, state: 'ok' | 'err') => {
+      status.textContent = msg;
+      status.dataset.state = state;
+      status.hidden = false;
+    };
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const email = emailInput?.value.trim() ?? '';
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        setStatus('Please enter a valid email.', 'err');
+        emailInput?.focus();
+        return;
+      }
+
+      const originalLabel = button.textContent;
+      button.disabled = true;
+      button.textContent = 'Adding you…';
+      status.hidden = true;
+
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+        const data = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string };
+
+        if (res.ok && data.ok) {
+          form.reset();
+          setStatus("You're on the list. I'll be in touch when a spot opens.", 'ok');
+          button.textContent = 'Added ✓';
+        } else {
+          setStatus(data.error ?? 'Something went wrong. Please try again.', 'err');
+          button.disabled = false;
+          button.textContent = originalLabel;
+        }
+      } catch {
+        setStatus('Network error. Please try again.', 'err');
+        button.disabled = false;
+        button.textContent = originalLabel;
+      }
+    });
+  });
+</script>
