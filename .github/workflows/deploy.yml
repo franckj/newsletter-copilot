@@ -1,0 +1,44 @@
+name: Deploy to Cloudflare Pages
+
+# Auto-deploy on every push to main (e.g. Juliet editing src/content/copy.ts
+# via the GitHub web UI). Mirrors the manual flow: build Astro -> wrangler deploy.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+# A newer push supersedes an in-flight deploy.
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build
+        run: npm run build
+        env:
+          # Must match the HONEYPOT_FIELD secret set on the Pages project
+          # (the function reads it at runtime; the form bakes it in at build).
+          HONEYPOT_FIELD: website_url
+          # Optional: empty -> analytics beacon is omitted (current state).
+          PUBLIC_CF_ANALYTICS_TOKEN: ${{ secrets.PUBLIC_CF_ANALYTICS_TOKEN }}
+
+      - name: Deploy
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=newsletter-copilot --branch=main
