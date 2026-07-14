@@ -37,7 +37,7 @@ Landing page for Juliet Lyall's newsletter advisory service.
 ### Waitlist form
 
 - `src/components/WaitlistForm.astro` — reusable form (Hero + Final CTA). Works without JS (native POST); JS upgrades it to inline success/error.
-- `functions/api/waitlist.ts` — Cloudflare Pages Function. Validates, checks honeypot, POSTs to Kit's public form endpoint. Auto-deploys with the site.
+- `functions/api/waitlist.ts` — Cloudflare Pages Function. Validates, checks honeypot, subscribes via Kit's authenticated **v3 API** (`api.convertkit.com/v3/forms/{id}/subscribe`). Do **not** use the public `app.kit.com` widget endpoint — it quarantines Cloudflare datacenter IPs and silently drops every subscriber. Auto-deploys with the site.
 - Honeypot field name is set by the `HONEYPOT_FIELD` env var — rotate it per major deploy for extra spam protection.
 
 ### Local dev
@@ -78,5 +78,10 @@ Reads the log straight from Cloudflare KV via your wrangler login. (Note: `wrang
 
 ### Deploy
 
-Push to `main` → Cloudflare Pages auto-builds and deploys.
-Build command: `npm run build` · Output dir: `dist` · Node 20+ · Framework preset: Astro.
+Push to `main` → GitHub Action (`.github/workflows/deploy.yml`) builds and runs
+`wrangler pages deploy`. Build: `npm run build` · Output: `dist` · Node 22.
+
+The project is **direct-upload** (not CF-native Git), so deploys go through the
+Action, not Cloudflare's own Git integration. Requires repo secrets
+`CLOUDFLARE_API_TOKEN` (Pages:Edit) + `CLOUDFLARE_ACCOUNT_ID`. Let the Action own
+deploys — don't also run `wrangler pages deploy` by hand (both hit one project).
