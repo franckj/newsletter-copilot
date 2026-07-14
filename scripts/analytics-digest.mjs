@@ -20,13 +20,18 @@ const SITE = 'newslettercopilot.co';
 const GQL = 'https://api.cloudflare.com/client/v4/graphql';
 
 function getToken() {
+  // 1) env  2) durable token file (used by the weekly cron)  3) wrangler OAuth (dev)
   if (process.env.CF_ANALYTICS_TOKEN) return process.env.CF_ANALYTICS_TOKEN.trim();
+  try {
+    const t = readFileSync(join(homedir(), '.config/newsletter-copilot/cf-analytics.token'), 'utf8').trim();
+    if (t) return t;
+  } catch {}
   try {
     const cfg = readFileSync(join(homedir(), '.config/.wrangler/config/default.toml'), 'utf8');
     const m = cfg.match(/oauth_token\s*=\s*"([^"]+)"/);
     if (m) return m[1];
   } catch {}
-  throw new Error('No token: set CF_ANALYTICS_TOKEN or run `npx wrangler login`.');
+  throw new Error('No token: create ~/.config/newsletter-copilot/cf-analytics.token or set CF_ANALYTICS_TOKEN.');
 }
 
 const TOKEN = getToken();

@@ -59,11 +59,22 @@ npx wrangler pages dev dist
 
 | Variable | Environment | Notes |
 |---|---|---|
-| `KIT_FORM_ID` | Production + Preview | `a184c8d5c1` |
+| `KIT_API_KEY` | Production + Preview (secret) | Kit v3 public `api_key` (Kit → Settings → Advanced → API). Used server-side to subscribe via the **authenticated v3 API** (`api.convertkit.com/v3/forms/{id}/subscribe`), which bypasses Kit's form spam-guard. The public widget endpoint quarantines Cloudflare datacenter POSTs — do **not** switch back to it. |
+| `KIT_FORM_ID` | Production + Preview | `9571375` — "Newsletter Co-pilot Waitlist V2". The **numeric** form ID (NOT the `runyourletter.kit.com/<slug>` uid). |
 | `HONEYPOT_FIELD` | Production + Preview | e.g. `website_url` |
 | `PUBLIC_CF_ANALYTICS_TOKEN` | Production only | From Cloudflare Web Analytics |
 
 `PUBLIC_*` vars are exposed to the client at build time. Non-prefixed vars are server-only (Pages Functions).
+
+**KV binding:** `WAITLIST_LOG` (namespace `d301b56ebaf743cfac930cc2040cf265`), defined in `wrangler.toml` and applied on `wrangler pages deploy`. The Function writes one obfuscated record per submission (masked email + SHA-256 hash, name, timestamp, Kit status + response body). No raw email addresses are stored.
+
+### Reviewing waitlist submissions
+
+```
+npm run log        # prints a table + writes reports/waitlist-log.ndjson
+```
+
+Reads the log straight from Cloudflare KV via your wrangler login. (Note: `wrangler kv` commands need `--remote` — without it they read empty local state.)
 
 ### Deploy
 

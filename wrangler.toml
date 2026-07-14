@@ -1,0 +1,10 @@
+name = "newsletter-copilot"
+pages_build_output_dir = "dist"
+compatibility_date = "2025-07-11"
+
+# Durable waitlist log (see functions/api/waitlist.ts). Emails are obfuscated
+# before storage — masked form + SHA-256 hash, never raw addresses.
+# KIT_FORM_ID / HONEYPOT_FIELD stay as project secrets (set via `wrangler pages secret put`).
+[[kv_namespaces]]
+binding = "WAITLIST_LOG"
+id = "d301b56ebaf743cfac930cc2040cf265"
