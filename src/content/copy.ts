@@ -11,7 +11,18 @@ export const meta = {
   canonical: 'https://newslettercopilot.co/',
 };
 
+export const nav = {
+  brand: 'Your Newsletter Co-Pilot',
+  links: [
+    { label: 'What you get', href: '#what-you-get' },
+    { label: 'Who am I?', href: '#about' },
+    { label: 'Pricing', href: '#pricing' },
+  ],
+  cta: { label: 'Claim your spot', href: '#claim' },
+};
+
 export const hero = {
+  eyebrow: '1-to-1 newsletter help for B2B founders',
   h1Prefix: 'The',
   h1Accent: '#1 solution',
   h1Suffix: 'for all your newsletter stress, mess and unrest.',
@@ -35,7 +46,8 @@ export const hero = {
 // Success state shown after a waitlist signup (covers + blurs the form).
 export const waitlist = {
   successTitle: "You're on the list!",
-  successBody: "Thanks — you'll hear from me when a spot opens. Keep an eye on your inbox.",
+  successBody:
+    "<strong>IMPORTANT</strong>: Please check your inbox/spam/promotion folder now for a 'confirm' message. The email gatekeepers want you to press the <strong>BIG CONFIRM BUTTON</strong> or they won't let me message you again. Thanks!",
 };
 
 export const testimonials = [
@@ -154,22 +166,26 @@ export const about = {
   outro: "I'm keeping this small on purpose because I want you to feel like you have a genuine co-pilot at your side. If this is what you're looking for, I'd love to work together.",
   cta: 'Now, go smash that waitlist button!',
   name: 'Juliet Lyall',
-  photoRole: 'Your Newsletter Co-Pilot',
+  photoRole: 'Your Newsletter Co‑Pilot',
   linkedIn: 'https://www.linkedin.com/in/julietlyall/',
 };
 
 export const pricing = {
   intro: 'One flat annual fee covers everything — calls, async support, strategy, growth, monetization advice, the lot.',
-  hookPrefix: "Right now, I'll be your newsletter co-pilot for",
-  hookPrice: '$15 / day',
-  scarcity:
-    "Because time is finite, and you get my full attention, I'm only opening this up to 15 founders. Grab a spot at the waitlist price because it will never be cheaper than this.",
-  tiers: [
-    { badge: 'First 5 spots', title: 'Fast Lane', price: '$5,500', period: 'per year', featured: true },
-    { badge: 'Spots 6–10', title: 'Middle Lane', price: '$6,500', period: 'per year', featured: false },
-    { badge: 'Last 5 spots', title: 'Scenic Route', price: '$7,500', period: 'per year', featured: false },
+  eyebrow: 'The Fast Lane',
+  price: '$500',
+  period: '/ month',
+  billed: 'Billed annually at $6,000 · payment plans available (3-month minimum)',
+  ctaLabel: 'Claim your spot',
+  scarcity: 'Only 15 founders. It will never be cheaper than this.',
+  includedHeading: 'Everything included:',
+  features: [
+    'One 60-minute strategy call every month',
+    'Daily async access — chat, email, or video',
+    'Content, growth and monetization advice',
+    'Layout, signup page and sequence reviews',
+    "Juliet's full attention — no juniors, no handoffs",
   ],
-  note: 'You get 12 months of unlimited access and support for less than a couple of SaaS subscriptions. Payment plans available (3-month minimum).',
 };
 
 export const finalCta = {

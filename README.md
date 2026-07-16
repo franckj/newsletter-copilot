@@ -34,6 +34,40 @@ Landing page for Juliet Lyall's newsletter advisory service.
 - `src/styles/global.css` — reset, buttons, section shell, headings.
 - `src/assets/` — logo + portraits (astro:assets optimizes them at build).
 
+### Design & layout notes
+
+Redesign pass (Jul 2026) — reference-driven, kept on the navy/red brand palette + Inter:
+
+- **Header (`Header.astro`)** — transparent, `position: absolute` over the hero so the
+  gradient shows through (scrolls away, not fixed). Wordmark only (envelope icon removed).
+  Nav: `What you get → #what-you-get`, `Who am I? → #about`, `Pricing → #pricing`, and a red
+  `Claim your spot → #claim` (hero form). On mobile the text links hide — only logo + CTA show.
+  Nav copy lives in the `nav` object in `copy.ts`.
+- **Favicon** — `public/favicon.svg` (navy rounded square + white envelope glyph), linked in
+  `BaseLayout.astro`. This is the old header icon, repurposed.
+- **Hero (`Hero.astro`)** — eyebrow pill (`hero.eyebrow`), lighter H1 (`font-weight: 500`),
+  three pillars rendered as plain **bold-lead lines** (no tick icons), the old emphasize block
+  removed. Form card top aligns with the headline (`margin-top` on `.hero-form`).
+- **Section anchors** — ids `#top #what-you-get #about #pricing #claim #claim-bottom`.
+  `html { scroll-padding-top: 24px }` gives anchor jumps a little breathing room.
+- **Pricing (`Pricing.astro`)** — single two-column card: left = plan/`$500`/month + billed line
+  + red `Claim your spot` CTA (→ `#claim-bottom`, the final CTA form) + scarcity footnote;
+  right = "Everything included:" checklist. Copy in the `pricing` object.
+- **Hero background effect** — pascal.trade-inspired: a diagonal **navy → navy-blue** gradient
+  (`linear-gradient(to top right, #0f0d4e, #1e2f7e)`) with a **grain texture** overlaid via
+  `.hero::after` using `mix-blend-mode: screen` (screen, *not* color-dodge — the texture is a
+  dark charcoal grain, so screen is what makes the speckle read on the dark base). Texture file:
+  `public/images/texture.jpg` (Pascal's original, **~695 KB — not yet optimized**; can be
+  recompressed to ~80–120 KB with no visible change). `.hero-inner` is lifted above the texture
+  with `z-index: 1`.
+  - **Revert to plain navy:** in `Hero.astro`, comment the `background` gradient, delete/comment
+    the `.hero::after` block, set `background: var(--navy);`. (A labeled comment block at the
+    `.hero` rule spells this out.)
+
+> ⚠️ **These changes were shipped via a manual `wrangler pages deploy` and are live, but may not
+> be committed to `main` yet.** Commit + push them so the GitHub Action (which rebuilds from
+> `main`) doesn't overwrite the live site on the next push. See **Deploy** below.
+
 ### Waitlist form
 
 - `src/components/WaitlistForm.astro` — reusable form (Hero + Final CTA). Works without JS (native POST); JS upgrades it to inline success/error.

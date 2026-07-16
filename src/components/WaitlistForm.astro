@@ -67,7 +67,7 @@ const { variant = 'stacked', ctaLabel, note } = Astro.props;
       <svg viewBox="0 0 24 24"><polyline points="5 12.5 10 17.5 19 6.5" /></svg>
     </span>
     <p class="wf-success-title">{waitlist.successTitle}</p>
-    <p class="wf-success-sub">{waitlist.successBody}</p>
+    <p class="wf-success-sub" set:html={waitlist.successBody}></p>
   </div>
 </form>
 
@@ -147,6 +147,7 @@ const { variant = 'stacked', ctaLabel, note } = Astro.props;
   .wf-check {
     width: 46px;
     height: 46px;
+    flex-shrink: 0;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -170,8 +171,8 @@ const { variant = 'stacked', ctaLabel, note } = Astro.props;
     letter-spacing: -0.01em;
   }
   .wf-success-sub {
-    font-size: 0.86rem;
-    line-height: 1.55;
+    font-size: 0.76rem;
+    line-height: 1.5;
     color: rgba(255, 255, 255, 0.9);
     max-width: 320px;
   }

@@ -4,33 +4,39 @@ import { pricing, sections } from '@/content/copy';
 const s = sections.pricing;
 ---
 
-<section class="section">
+<section class="section" id="pricing">
   <div class="section-inner">
     <div class="pricing-top">
       <h2>{s.h2Prefix} <span class="accent">{s.h2Accent}</span></h2>
       <p class="lead pricing-intro">{pricing.intro}</p>
+    </div>
 
-      <div class="pricing-hook">
-        {pricing.hookPrefix} <span class="price-num">{pricing.hookPrice}</span>
+    <div class="pricing-card">
+      <div class="pricing-main">
+        <div class="tier-eyebrow">{pricing.eyebrow}</div>
+        <div class="price-row">
+          <span class="price">{pricing.price}</span>
+          <span class="period">{pricing.period}</span>
+        </div>
+        <p class="billed">{pricing.billed}</p>
+        <a href="#claim-bottom" class="btn btn-red btn-block pricing-cta">{pricing.ctaLabel}</a>
+        <p class="pricing-foot">{pricing.scarcity}</p>
       </div>
 
-      <p class="lead pricing-scarcity">{pricing.scarcity}</p>
+      <div class="pricing-features">
+        <p class="feat-head">{pricing.includedHeading}</p>
+        <ul>
+          {
+            pricing.features.map((f) => (
+              <li>
+                <span class="check" aria-hidden="true">✓</span>
+                <span>{f}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
     </div>
-
-    <div class="pricing-tiers">
-      {
-        pricing.tiers.map((tier) => (
-          <div class:list={['tier', { featured: tier.featured }]}>
-            <div class="tier-badge">{tier.badge}</div>
-            <div class="tier-title">{tier.title}</div>
-            <div class="tier-price">{tier.price}</div>
-            <div class="tier-period">{tier.period}</div>
-          </div>
-        ))
-      }
-    </div>
-
-    <p class="pricing-note">{pricing.note}</p>
   </div>
 </section>
 
@@ -40,93 +46,116 @@ const s = sections.pricing;
     margin-bottom: 50px;
   }
   .pricing-intro {
-    margin: 0 auto 32px;
+    margin: 0 auto;
+    max-width: 760px;
   }
-  .pricing-hook {
-    display: inline-block;
-    background: rgba(219, 28, 74, 0.15);
-    border: 1px solid var(--red);
-    color: #fff;
-    padding: 10px 22px;
-    border-radius: 30px;
+
+  .pricing-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-width: 960px;
+    margin: 0 auto;
+    background: linear-gradient(180deg, #1c1b66 0%, #12114f 100%);
+    border: 1px solid rgba(219, 28, 74, 0.35);
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    box-shadow: 0 24px 60px -30px rgba(219, 28, 74, 0.5);
+  }
+
+  .pricing-main {
+    padding: 46px 44px;
+    border-right: 1px solid var(--border-dark);
+    display: flex;
+    flex-direction: column;
+  }
+  .tier-eyebrow {
+    color: var(--red);
     font-weight: 700;
-    font-size: 0.95rem;
-    margin-bottom: 24px;
-    letter-spacing: 0.01em;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    margin-bottom: 18px;
   }
-  .price-num {
+  .price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .price {
+    font-size: 3.4rem;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+  .period {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--muted-on-dark);
+  }
+  .billed {
+    color: var(--pale);
+    font-size: 0.85rem;
+    line-height: 1.55;
+    margin-bottom: 26px;
+    max-width: 320px;
+  }
+  .pricing-cta {
+    font-size: 0.95rem;
+    padding: 15px 30px;
+    margin-bottom: 18px;
+  }
+  .pricing-foot {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.82rem;
+    text-align: center;
+    margin-top: auto;
+  }
+
+  .pricing-features {
+    padding: 46px 44px;
+    background: rgba(0, 0, 0, 0.14);
+  }
+  .feat-head {
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.98rem;
+    margin-bottom: 22px;
+  }
+  .pricing-features ul {
+    list-style: none;
+    display: grid;
+    gap: 18px;
+    padding: 0;
+    margin: 0;
+  }
+  .pricing-features li {
+    display: grid;
+    grid-template-columns: 20px 1fr;
+    gap: 12px;
+    align-items: start;
+  }
+  .check {
     color: var(--red);
     font-weight: 800;
-  }
-  .pricing-scarcity {
-    margin: 0 auto;
     font-size: 0.95rem;
+    line-height: 1.5;
   }
-  .pricing-tiers {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    max-width: 900px;
-    margin: 0 auto;
-  }
-  .tier {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid var(--border-dark);
-    border-radius: 12px;
-    padding: 32px 24px;
-    text-align: center;
-    position: relative;
-    transition: transform 0.2s, border-color 0.2s;
-  }
-  .tier.featured {
-    border-color: var(--red);
-    background: rgba(219, 28, 74, 0.06);
-  }
-  .tier-badge {
-    display: inline-block;
-    background: var(--pale);
-    color: var(--navy);
-    font-weight: 700;
-    font-size: 0.72rem;
-    padding: 4px 12px;
-    border-radius: 20px;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    margin-bottom: 16px;
-  }
-  .tier.featured .tier-badge {
-    background: var(--red);
-    color: #fff;
-  }
-  .tier-title {
-    color: #fff;
-    font-weight: 700;
-    font-size: 1rem;
-    margin-bottom: 8px;
-  }
-  .tier-price {
-    font-size: 2.1rem;
-    font-weight: 800;
-    color: #fff;
-    letter-spacing: -0.025em;
-    line-height: 1;
-    margin-bottom: 4px;
-  }
-  .tier-period {
+  .pricing-features li span:last-child {
     color: var(--muted-on-dark);
-    font-size: 0.85rem;
-  }
-  .pricing-note {
-    text-align: center;
-    margin-top: 32px;
-    color: var(--muted-on-dark);
-    font-size: 0.88rem;
-    line-height: 1.7;
+    font-size: 0.93rem;
+    line-height: 1.5;
   }
 
   @media (max-width: 880px) {
-    .pricing-tiers {
+    .pricing-card {
       grid-template-columns: 1fr;
+      max-width: 460px;
+    }
+    .pricing-main {
+      border-right: none;
+      border-bottom: 1px solid var(--border-dark);
     }
   }
 </style>

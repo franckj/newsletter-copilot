@@ -9,3 +9,6 @@ dist/
 
 # generated analytics reports
 reports/
+
+# local working screenshots / references
+updates/

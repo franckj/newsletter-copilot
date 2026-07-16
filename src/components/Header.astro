@@ -1,52 +1,48 @@
 ---
 // Brand mark: a clean, mostly-white envelope glyph (newsletter motif).
+import { nav } from '@/content/copy';
 ---
 
 <header class="logo-bar">
   <div class="logo-inner">
     <a href="#top" class="logo" aria-label="Your Newsletter Co-Pilot — home">
-      <span class="brand-icon" aria-hidden="true">
-        <svg viewBox="0 0 40 40" width="34" height="34" role="img">
-          <rect x="4" y="9" width="32" height="23" rx="4.5" fill="#fff" />
-          <path
-            d="M8 13 L20 22 L32 13"
-            fill="none"
-            stroke="var(--navy)"
-            stroke-width="2.4"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-      </span>
-      <span class="brand-name">Your Newsletter Co-Pilot</span>
+      <span class="brand-name">{nav.brand}</span>
     </a>
+
+    <nav class="nav" aria-label="Primary">
+      <ul class="nav-links">
+        {nav.links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+      </ul>
+      <a href={nav.cta.href} class="btn btn-red nav-cta">{nav.cta.label}</a>
+    </nav>
   </div>
 </header>
 
 <style>
+  /* Transparent header sits over the hero gradient (pascal.trade style). */
   .logo-bar {
-    padding: 15px var(--section-x);
-    background: var(--navy);
-    border-bottom: 1px solid var(--border-dark);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    padding: 18px var(--section-x);
+    background: transparent;
   }
   .logo-inner {
     max-width: 1120px;
     margin: 0 auto; /* aligns the mark with the hero's content column */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
   }
   .logo {
     display: inline-flex;
     align-items: center;
     gap: 12px;
     text-decoration: none;
-  }
-  .brand-icon {
-    display: flex;
-    align-items: center;
-  }
-  .brand-icon svg {
-    display: block;
-    width: 34px;
-    height: 34px;
+    flex-shrink: 0;
   }
   .brand-name {
     font-family: 'Space Grotesk Variable', var(--font-body);
@@ -57,16 +53,50 @@
     line-height: 1;
   }
 
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+    list-style: none;
+  }
+  .nav-links a {
+    color: rgba(255, 255, 255, 0.92);
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 400;
+    transition: color 0.15s;
+  }
+  .nav-links a:hover {
+    color: #fff;
+  }
+  .nav-cta {
+    padding: 9px 18px;
+    font-size: 0.82rem;
+  }
+
   @media (max-width: 880px) {
     .logo-bar {
-      padding: 13px var(--section-x);
-    }
-    .brand-icon svg {
-      width: 30px;
-      height: 30px;
+      padding: 11px var(--section-x);
     }
     .brand-name {
-      font-size: 1.05rem;
+      font-size: 1rem;
+    }
+    /* Keep the header lean on mobile: hide text links, keep the CTA. */
+    .nav-links {
+      display: none;
+    }
+    .nav {
+      gap: 0;
+    }
+    .nav-cta {
+      white-space: nowrap;
+      padding: 8px 14px;
+      font-size: 0.8rem;
     }
   }
 </style>
