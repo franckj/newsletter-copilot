@@ -48,6 +48,10 @@ Redesign pass (Jul 2026) — reference-driven, kept on the navy/red brand palett
 - **Hero (`Hero.astro`)** — eyebrow pill (`hero.eyebrow`), lighter H1 (`font-weight: 500`),
   three pillars rendered as plain **bold-lead lines** (no tick icons), the old emphasize block
   removed. Form card top aligns with the headline (`margin-top` on `.hero-form`).
+  The waitlist card (`.hero-form`) is a **solid dark navy panel** (`rgba(7,6,38,0.82)` + pale
+  border + shadow) — a translucent card was unreadable over the bright gradient (see below).
+- **Mobile header** — only the wordmark shows (`.nav { display:none }` under 880px); the nav
+  links and Claim CTA are hidden. The CTA is redundant on mobile — the hero form is right below.
 - **Section anchors** — ids `#top #what-you-get #about #pricing #claim #claim-bottom`.
   `html { scroll-padding-top: 24px }` gives anchor jumps a little breathing room.
 - **Pricing (`Pricing.astro`)** — single two-column card: left = plan/`$500`/month + billed line
