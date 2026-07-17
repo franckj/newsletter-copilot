@@ -36,26 +36,9 @@ import WaitlistForm from './WaitlistForm.astro';
 <style>
   .hero {
     padding: 160px var(--section-x) 100px;
-    /* pascal.trade approach: diagonal brand gradient + a grain texture overlay
-       (see .hero::after). Navy → deeper navy-blue. Grain is screen-blended
-       (not color-dodge) so the dark texture's speckle reads on the dark base.
-       ─────────────────────────────────────────────────────────────────────
-       REVERT TO PLAIN NAVY: comment out the `background` line below, delete or
-       comment the `.hero::after` block, and set `background: var(--navy);`.
-       ───────────────────────────────────────────────────────────────────── */
-    background: linear-gradient(to top right, #0f0d4e 0%, #1e2f7e 100%);
+    background: var(--navy);
     position: relative;
     overflow: hidden;
-  }
-  .hero::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    mix-blend-mode: screen;
-    opacity: 0.9;
-    background: url('/images/texture.jpg') 50% / cover no-repeat;
   }
   .hero::before {
     content: '';
@@ -133,13 +116,11 @@ import WaitlistForm from './WaitlistForm.astro';
   }
 
   .hero-form {
-    background: rgba(7, 6, 38, 0.82);
-    border: 1px solid rgba(155, 185, 249, 0.3);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-dark);
     border-radius: 12px;
     padding: 34px 30px;
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(6px);
   }
   .hero-form-title {
     font-weight: 700;
