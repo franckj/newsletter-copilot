@@ -22,7 +22,7 @@ export const nav = {
 };
 
 export const hero = {
-  eyebrow: '1-to-1 newsletter help for B2B founders',
+  eyebrow: '',
   h1Prefix: 'The',
   h1Accent: '#1 solution',
   h1Suffix: 'for all your newsletter stress, mess and unrest.',
@@ -144,7 +144,7 @@ export const forYouIf = {
 };
 
 export const about = {
-  intro: 'A direct line to my B2B newsletter experience.',
+  intro: 'I work 1-to-1 with you and your team.',
   paragraphs: [
     "Hi, I'm Juliet.",
     'Few B2B businesses have the luxury of a dedicated expert on hand to help run their newsletter.',
@@ -175,9 +175,9 @@ export const pricing = {
   eyebrow: 'The Fast Lane',
   price: '$500',
   period: '/ month',
-  billed: 'Billed annually at $6,000 · payment plans available (3-month minimum)',
+  billed: 'Billed annually at $6,000 · Payment plans available · Only 15 spots',
   ctaLabel: 'Claim your spot',
-  scarcity: 'Only 15 founders. It will never be cheaper than this.',
+  scarcity: 'Need a shorter term? Ask me for options!',
   includedHeading: 'Everything included:',
   features: [
     'One 60-minute strategy call every month',
@@ -212,9 +212,9 @@ export const sections = {
   coPilot: {
     h2Prefix: 'Your newsletter co-pilot:',
     h2Accent: 'expert help when you need it',
-    lead: "I've spent the past 7+ years writing, growing, and monetizing newsletters that have sold for 6 and 7 figures. Well-known names across investing, finance, tech, SEO, SaaS, and marketing trusted me to help build and publish newsletters that achieved results like these:",
+    lead: "I've spent the past 7+ years writing, growing, and monetizing newsletters that have sold for 6 and 7 figures. Well-known names across investing, finance, tech, SEO, SaaS, and marketing trust me to help build and publish newsletters that achieve results like these:",
   },
-  whatYouGet: { h2Prefix: 'What', h2Accent: 'you get' },
+  whatYouGet: { h2Prefix: 'What you get: Work with me', h2Accent: 'one-to-one' },
   forYouIf: { h2Prefix: 'This is', h2Accent: 'for you', h2Suffix: ' if…' },
   about: { h2Prefix: 'Who am', h2Accent: 'I?' },
   pricing: { h2Prefix: "What's", h2Accent: 'my investment?' },

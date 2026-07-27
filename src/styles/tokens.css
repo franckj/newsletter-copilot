@@ -11,7 +11,7 @@
   --off: #F5F6FC;
   --text-dark: #1A1A2E;
   --muted-on-dark: rgba(255, 255, 255, 0.88);
-  --muted-on-light: #6B7280;
+  --muted-on-light: #4B5563;
   --border-dark: rgba(155, 185, 249, 0.15);
   --border-light: #E0E3F0;
 
@@ -20,7 +20,7 @@
   --fs-h1: clamp(2.2rem, 4vw, 3.2rem);
   --fs-h2: clamp(1.8rem, 3vw, 2.4rem);
   --fs-h3: 1.15rem;
-  --fs-body: 15px;
+  --fs-body: 16px;
   --lh-body: 1.65;
 
   /* Spacing scale (8px base) */

@@ -6,7 +6,7 @@ import WaitlistForm from './WaitlistForm.astro';
 <section class="hero" id="top">
   <div class="hero-inner">
     <div class="hero-head">
-      <span class="hero-eyebrow">{hero.eyebrow}</span>
+      {hero.eyebrow && <span class="hero-eyebrow">{hero.eyebrow}</span>}
       <h1>
         {hero.h1Prefix} <span class="accent">{hero.h1Accent}</span> {hero.h1Suffix}
       </h1>
@@ -108,7 +108,7 @@ import WaitlistForm from './WaitlistForm.astro';
   }
 
   .hero-desc {
-    font-size: 0.98rem;
+    font-size: 1.02rem;
     color: var(--muted-on-dark);
     line-height: 1.8;
     max-width: 480px;
