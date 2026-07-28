@@ -45,9 +45,13 @@ Redesign pass (Jul 2026) — reference-driven, kept on the navy/red brand palett
   Nav copy lives in the `nav` object in `copy.ts`.
 - **Favicon** — `public/favicon.svg` (navy rounded square + white envelope glyph), linked in
   `BaseLayout.astro`. This is the old header icon, repurposed.
-- **Hero (`Hero.astro`)** — eyebrow pill (`hero.eyebrow`), lighter H1 (`font-weight: 500`),
+- **Hero (`Hero.astro`)** — lighter H1 (`font-weight: 500`),
   three pillars rendered as plain **bold-lead lines** (no tick icons), the old emphasize block
   removed. Form card top aligns with the headline (`margin-top` on `.hero-form`).
+  The eyebrow pill (`hero.eyebrow`) is **currently empty** — Juliet removed the
+  "1-to-1 newsletter help for B2B founders" line. It's conditionally rendered
+  (`{hero.eyebrow && …}`), so setting `hero.eyebrow` back to a non-empty string in
+  `copy.ts` brings the pill back automatically.
   The waitlist card (`.hero-form`) is a **solid dark navy panel** (`rgba(7,6,38,0.82)` + pale
   border + shadow) — a translucent card was unreadable over the bright gradient (see below).
 - **Mobile header** — only the wordmark shows (`.nav { display:none }` under 880px); the nav
@@ -57,6 +61,13 @@ Redesign pass (Jul 2026) — reference-driven, kept on the navy/red brand palett
 - **Pricing (`Pricing.astro`)** — single two-column card: left = plan/`$500`/month + billed line
   + red `Claim your spot` CTA (→ `#claim-bottom`, the final CTA form) + scarcity footnote;
   right = "Everything included:" checklist. Copy in the `pricing` object.
+- **Typography (readability pass, Jul 2026)** — Juliet + readers found the original body copy
+  (14–15px) too small. Base `--fs-body` is now **16px**; primary reading copy (About paragraphs,
+  testimonial quotes) is **17px** (`1.06rem` / `1.05rem`), supporting copy (card descriptions,
+  for-you-if Q&A, benefit text) is **16px** (`1rem`). Headings, nav, labels, badges and the price
+  number were left untouched (deliberate — a global root bump would inflate the headings too).
+  Light body text darkened for contrast: `--muted-on-light` `#6B7280` → **`#4B5563`**.
+  To revert the whole pass, `git revert` commit `433992b`.
 - **Hero background effect** — pascal.trade-inspired: a diagonal **navy → navy-blue** gradient
   (`linear-gradient(to top right, #0f0d4e, #1e2f7e)`) with a **grain texture** overlaid via
   `.hero::after` using `mix-blend-mode: screen` (screen, *not* color-dodge — the texture is a
@@ -68,9 +79,10 @@ Redesign pass (Jul 2026) — reference-driven, kept on the navy/red brand palett
     the `.hero::after` block, set `background: var(--navy);`. (A labeled comment block at the
     `.hero` rule spells this out.)
 
-> ⚠️ **These changes were shipped via a manual `wrangler pages deploy` and are live, but may not
-> be committed to `main` yet.** Commit + push them so the GitHub Action (which rebuilds from
-> `main`) doesn't overwrite the live site on the next push. See **Deploy** below.
+> ℹ️ The redesign + readability passes are **committed and pushed to `main`** (latest: `433992b`),
+> so `main` and the live site are in sync. When shipping a quick fix via manual
+> `wrangler pages deploy`, remember to commit + push it too — otherwise the next push to `main`
+> triggers the GitHub Action to rebuild from `main` and overwrite the manual deploy. See **Deploy**.
 
 ### Waitlist form
 
