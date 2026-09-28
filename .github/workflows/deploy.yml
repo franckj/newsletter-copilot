@@ -1,44 +1,27 @@
-name: Deploy to Cloudflare Pages
+# Deploys only when a commit message contains [deploy] (the daily "ship approved tasks" routine adds it),
+# or when started by hand. Other pushes never deploy. Key: repo secret CLOUDFLARE_API_TOKEN.
+name: Deploy
 
-# Auto-deploy on every push to main (e.g. Juliet editing src/content/copy.ts
-# via the GitHub web UI). Mirrors the manual flow: build Astro -> wrangler deploy.
 on:
   push:
     branches: [main]
-  workflow_dispatch: {}
-
-# A newer push supersedes an in-flight deploy.
-concurrency:
-  group: deploy-${{ github.ref }}
-  cancel-in-progress: true
+  workflow_dispatch:
 
 jobs:
   deploy:
+    if: ${{ github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[deploy]') }}
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
     steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
           cache: npm
-
       - run: npm ci
-
-      - name: Build
-        run: npm run build
-        env:
-          # Must match the HONEYPOT_FIELD secret set on the Pages project
-          # (the function reads it at runtime; the form bakes it in at build).
-          HONEYPOT_FIELD: website_url
-          # Optional: empty -> analytics beacon is omitted (current state).
-          PUBLIC_CF_ANALYTICS_TOKEN: ${{ secrets.PUBLIC_CF_ANALYTICS_TOKEN }}
-
-      - name: Deploy
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy dist --project-name=newsletter-copilot --branch=main
+      - run: npm run build && npx wrangler pages deploy --branch main
